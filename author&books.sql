@@ -42,5 +42,29 @@ select * from books;
 
 select * from authors
 join books on authors.id = books.author_id
-where price > 10 
+
+
+
+select title, author_id from books
+where author_id in (select author_id from authors);
+
+SELECT a.name, b.title, b.price
+FROM authors a
+JOIN books b ON a.id = b.author_id
+WHERE b.price > (SELECT AVG(price) FROM books);
+
+select authors.name , avg(books.price) as avg_price
+from authors
+join books on authors.id = books.author_id
+group by authors.name;
+
+
+SELECT a.name, b.title, b.price
+FROM authors a
+JOIN books b ON a.id = b.author_id
+WHERE b.price > (
+    SELECT AVG(b2.price)
+    FROM books b2
+    WHERE b2.author_id = a.id
+);
 
