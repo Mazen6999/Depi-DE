@@ -9,3 +9,15 @@ BEGIN
     RETURN 'Cheap';
   END IF;
 END;
+
+
+
+CREATE FUNCTION current_timestamp_msg()
+RETURNS VARCHAR(50)
+NOT DETERMINISTIC
+BEGIN
+  RETURN CONCAT('The current time is: ', NOW());
+END;
+
+
+SELECT current_timestamp_msg() AS message;

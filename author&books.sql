@@ -81,6 +81,7 @@ call count_author_books('George Orwell', @num_books);
 SELECT @num_books;
 
 DROP FUNCTION IF EXISTS cheap_expensive;
+
 CREATE FUNCTION cheap_expensive (price INT)
 RETURNS VARCHAR(10)
 DETERMINISTIC
@@ -93,4 +94,16 @@ BEGIN
 END;
 
 SELECT title, price, cheap_expensive(price) AS price_category
+FROM books;
+
+DROP FUNCTION IF EXISTS apply_discount;
+
+CREATE FUNCTION apply_discount(price DECIMAL(10,2), discount DECIMAL(5,2))
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+  RETURN price - (price * (discount / 100));
+END;
+
+SELECT title, price, apply_discount(price, 10) AS discounted_price, price - apply_discount(price, 10) AS discount_amount
 FROM books;
