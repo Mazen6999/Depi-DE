@@ -1,10 +1,6 @@
 -- Drop tables if already exist
 DROP TABLE IF EXISTS books;
-
-
 DROP TABLE IF EXISTS authors;
-
-
 DROP TABLE IF EXISTS book_inserts_log;
 
 -- 1. Creating sample tables
@@ -37,13 +33,10 @@ INSERT INTO books (title, author_id, price, published_year) VALUES
 
 select * from authors;
 
-
 select * from books;
 
 select * from authors
 join books on authors.id = books.author_id
-
-
 
 select title, author_id from books
 where author_id in (select author_id from authors);
@@ -52,6 +45,7 @@ SELECT a.name, b.title, b.price
 FROM authors a
 JOIN books b ON a.id = b.author_id
 WHERE b.price > (SELECT AVG(price) FROM books);
+
 
 select authors.name , avg(books.price) as avg_price
 from authors
@@ -67,4 +61,3 @@ WHERE b.price > (
     FROM books b2
     WHERE b2.author_id = a.id
 );
-
