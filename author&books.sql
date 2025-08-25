@@ -61,3 +61,21 @@ WHERE b.price > (
     FROM books b2
     WHERE b2.author_id = a.id
 );
+
+
+DROP PROCEDURE IF EXISTS count_author_books;
+
+CREATE PROCEDURE count_author_books(
+    IN authorname VARCHAR(20),
+    OUT num_books INT
+)
+BEGIN
+  SELECT count(*) INTO num_books
+  FROM books
+  JOIN authors
+    ON books.author_id = authors.id
+  WHERE authors.name = authorname;
+END;
+
+call count_author_books('George Orwell', @num_books);
+SELECT @num_books;

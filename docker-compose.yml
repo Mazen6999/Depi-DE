@@ -11,9 +11,12 @@ services:
       MYSQL_PASSWORD: my_password
     ports:
       - "3306:3306"
+    command:
+      - --log-bin=mysqld-bin
+      - --log_bin_trust_function_creators=1
     volumes:
       - db_data:/var/lib/mysql
 
 volumes:
   db_data:
-    
+
