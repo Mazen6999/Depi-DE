@@ -80,13 +80,17 @@ END;
 call count_author_books('George Orwell', @num_books);
 SELECT @num_books;
 
+DROP FUNCTION IF EXISTS cheap_expensive;
 CREATE FUNCTION cheap_expensive (price INT)
 RETURNS VARCHAR(10)
 DETERMINISTIC
 BEGIN
-  IF price > 5 THEN
+  IF price > 15 THEN
     RETURN 'Expensive';
   ELSE
     RETURN 'Cheap';
   END IF;
 END;
+
+SELECT title, price, cheap_expensive(price) AS price_category
+FROM books;
